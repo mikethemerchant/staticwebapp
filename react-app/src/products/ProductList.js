@@ -1,9 +1,11 @@
 import React from 'react';
-import { withRouter } from 'react-router';
-
+import { useNavigate, useLocation } from 'react-router-dom';
 import { CardContent } from '../components';
 
 function ProductList({products}) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <div>
       {products.length === 0 && <div>Loading data ...</div>}
@@ -23,4 +25,4 @@ function ProductList({products}) {
   );
 }
 
-export default withRouter(ProductList);
+export default ProductList;

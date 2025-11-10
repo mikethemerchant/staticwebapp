@@ -1,36 +1,31 @@
-import React, { Component, lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import 'bulma/css/bulma.css';
 import './styles.scss';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import { withRouter } from 'react-router';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { HeaderBar, NavBar, NotFound } from './components';
 import About from './About';
 
-const Products = withRouter(
-  lazy(() => import(/* webpackChunkName: "products" */ './products/Products'))
-);
+const Products = lazy(() => import(/* webpackChunkName: "products" */ './products/Products'));
 
-class App extends Component {
-  render() {
-    return (
-      <div>
-        <HeaderBar />
-        <div className="section columns">
-          <NavBar />
-          <main className="column">
-            <Suspense fallback={<div>Loading...</div>}>
-              <Switch>
-                <Redirect from="/" exact to="/products" />
-                <Route path="/products" component={Products} />
-                <Route path="/about" component={About} />
-                <Route exact path="**" component={NotFound} />
-              </Switch>
-            </Suspense>
-          </main>
-        </div>
+function App() {
+  return (
+    <div>
+      <HeaderBar />
+      <div className="section columns">
+        <NavBar />
+        <main className="column">
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<Navigate to="/products" replace />} />
+              <Route path="/products" element={<Products />} />
+              <Route path="/about" element={<About />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </main>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default App;

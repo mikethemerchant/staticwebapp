@@ -27,8 +27,9 @@ steps:
       npm -v
       echo "Cleaning npm cache..."
       npm cache clean --force
-      echo "Installing dependencies..."
-      npm ci
+      echo "Installing dependencies with package lock update..."
+      rm -f package-lock.json
+      npm install --legacy-peer-deps
       echo "Building React app..."
       CI=true npm run build
   displayName: 'Build React app'

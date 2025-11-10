@@ -1,10 +1,8 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { CardContent } from '../components';
 
 function ProductList({products}) {
-  const navigate = useNavigate();
-  const location = useLocation();
+  // ...existing code...
 
   return (
     <div>
